@@ -16,6 +16,12 @@ export default function CakeCalculator() {
     electricity: 0,
   })
 
+  const [decorations, setDecorations] = useState({
+    fondant: 0,
+    toppers: 0,
+    flowers: 0,
+  })
+
   const [profitPercentage, setProfitPercentage] = useState(20)
 
   const ingredientTotal =
@@ -29,7 +35,15 @@ export default function CakeCalculator() {
     Number(businessCosts.labor) +
     Number(businessCosts.electricity)
 
-  const totalCost = ingredientTotal + businessTotal
+  const decorationTotal =
+    Number(decorations.fondant) +
+    Number(decorations.toppers) +
+    Number(decorations.flowers)
+
+  const totalCost =
+    ingredientTotal +
+    businessTotal +
+    decorationTotal
 
   const expectedProfit =
     (profitPercentage / 100) * totalCost
@@ -131,6 +145,42 @@ export default function CakeCalculator() {
 
           <input
             type="number"
+            placeholder="Fondant Cost"
+            className="w-full border p-3 rounded-lg"
+            onChange={(e) =>
+              setDecorations({
+                ...decorations,
+                fondant: Number(e.target.value),
+              })
+            }
+          />
+
+          <input
+            type="number"
+            placeholder="Cake Topper Cost"
+            className="w-full border p-3 rounded-lg"
+            onChange={(e) =>
+              setDecorations({
+                ...decorations,
+                toppers: Number(e.target.value),
+              })
+            }
+          />
+
+          <input
+            type="number"
+            placeholder="Flowers Decoration Cost"
+            className="w-full border p-3 rounded-lg"
+            onChange={(e) =>
+              setDecorations({
+                ...decorations,
+                flowers: Number(e.target.value),
+              })
+            }
+          />
+
+          <input
+            type="number"
             placeholder="Profit %"
             className="w-full border p-3 rounded-lg"
             value={profitPercentage}
@@ -155,6 +205,11 @@ export default function CakeCalculator() {
           <p>
             Business Costs: ₦
             {businessTotal.toLocaleString()}
+          </p>
+
+          <p>
+            Decoration Costs: ₦
+            {decorationTotal.toLocaleString()}
           </p>
 
           <p>
