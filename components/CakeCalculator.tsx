@@ -3,6 +3,13 @@
 import { useState } from "react"
 
 export default function CakeCalculator() {
+  const [cakeDetails, setCakeDetails] = useState({
+    size: "6 Inches",
+    flavor: "Vanilla",
+    layers: 1,
+    quantity: 1,
+  })
+
   const [ingredients, setIngredients] = useState({
     flour: 0,
     sugar: 0,
@@ -41,9 +48,11 @@ export default function CakeCalculator() {
     Number(decorations.flowers)
 
   const totalCost =
-    ingredientTotal +
-    businessTotal +
-    decorationTotal
+    (
+      ingredientTotal +
+      businessTotal +
+      decorationTotal
+    ) * cakeDetails.quantity
 
   const expectedProfit =
     (profitPercentage / 100) * totalCost
@@ -59,6 +68,71 @@ export default function CakeCalculator() {
         </h2>
 
         <div className="space-y-4">
+
+          <select
+            className="w-full border p-3 rounded-lg"
+            value={cakeDetails.size}
+            onChange={(e) =>
+              setCakeDetails({
+                ...cakeDetails,
+                size: e.target.value,
+              })
+            }
+          >
+            <option>6 Inches</option>
+            <option>8 Inches</option>
+            <option>10 Inches</option>
+            <option>12 Inches</option>
+            <option>2 Tier Cake</option>
+            <option>3 Tier Cake</option>
+          </select>
+
+          <select
+            className="w-full border p-3 rounded-lg"
+            value={cakeDetails.flavor}
+            onChange={(e) =>
+              setCakeDetails({
+                ...cakeDetails,
+                flavor: e.target.value,
+              })
+            }
+          >
+            <option>Vanilla</option>
+            <option>Chocolate</option>
+            <option>Red Velvet</option>
+            <option>Fruit Cake</option>
+          </select>
+
+          <select
+            className="w-full border p-3 rounded-lg"
+            value={cakeDetails.layers}
+            onChange={(e) =>
+              setCakeDetails({
+                ...cakeDetails,
+                layers: Number(e.target.value),
+              })
+            }
+          >
+            <option value={1}>1 Layer</option>
+            <option value={2}>2 Layers</option>
+            <option value={3}>3 Layers</option>
+            <option value={4}>4 Layers</option>
+          </select>
+
+          <input
+            type="number"
+            placeholder="Quantity"
+            className="w-full border p-3 rounded-lg"
+            value={cakeDetails.quantity}
+            min={1}
+            onChange={(e) =>
+              setCakeDetails({
+                ...cakeDetails,
+                quantity: Number(e.target.value),
+              })
+            }
+          />
+
           <input
             type="number"
             placeholder="Flour Cost"
@@ -186,34 +260,45 @@ export default function CakeCalculator() {
             value={profitPercentage}
             onChange={(e) =>
               setProfitPercentage(Number(e.target.value))
-
             }
           />
+
           <button
             className="w-full bg-red-500 text-white p-3 rounded-lg hover:opacity-90"
             onClick={() => {
-              setIngredients({ flour: 0, sugar: 0, butter: 0, eggs: 0 })
-              setBusinessCosts({ transport: 0, labor: 0, electricity: 0 })
-              setDecorations({ fondant: 0, toppers: 0, flowers: 0 })
+              setIngredients({
+                flour: 0,
+                sugar: 0,
+                butter: 0,
+                eggs: 0,
+              })
+
+              setBusinessCosts({
+                transport: 0,
+                labor: 0,
+                electricity: 0,
+              })
+
+              setDecorations({
+                fondant: 0,
+                toppers: 0,
+                flowers: 0,
+              })
+
               setProfitPercentage(20)
-              setCakeDetails({ size: "6 Inches", flavor: "Vanilla", layers: 1, quantity: 1 })
+
+              setCakeDetails({
+                size: "6 Inches",
+                flavor: "Vanilla",
+                layers: 1,
+                quantity: 1,
+              })
             }}
           >
             Reset Calculator
           </button>
+
         </div>
-          <button
-            className="w-full bg-red-500 text-white p-3 rounded-lg hover:opacity-90"
-            onClick={() => {
-              setIngredients({ flour: 0, sugar: 0, butter: 0, eggs: 0 })
-              setBusinessCosts({ transport: 0, labor: 0, electricity: 0 })
-              setDecorations({ fondant: 0, toppers: 0, flowers: 0 })
-              setProfitPercentage(20)
-              setCakeDetails({ size: "6 Inches", flavor: "Vanilla", layers: 1, quantity: 1 })
-            }}
-          >
-            Reset Calculator
-          </button>
       </div>
 
       <div className="bg-[#5c3d2e] text-white p-6 rounded-2xl shadow">
@@ -222,6 +307,23 @@ export default function CakeCalculator() {
         </h2>
 
         <div className="space-y-4 text-lg">
+
+          <p>
+            Cake Size: {cakeDetails.size}
+          </p>
+
+          <p>
+            Flavor: {cakeDetails.flavor}
+          </p>
+
+          <p>
+            Layers: {cakeDetails.layers}
+          </p>
+
+          <p>
+            Quantity: {cakeDetails.quantity}
+          </p>
+
           <p>
             Ingredient Total: ₦
             {ingredientTotal.toLocaleString()}
@@ -251,44 +353,9 @@ export default function CakeCalculator() {
             Selling Price: ₦
             {sellingPrice.toLocaleString()}
           </p>
-          <button
-            className="w-full bg-red-500 text-white p-3 rounded-lg hover:opacity-90"
-            onClick={() => {
-              setIngredients({ flour: 0, sugar: 0, butter: 0, eggs: 0 })
-              setBusinessCosts({ transport: 0, labor: 0, electricity: 0 })
-              setDecorations({ fondant: 0, toppers: 0, flowers: 0 })
-              setProfitPercentage(20)
-              setCakeDetails({ size: "6 Inches", flavor: "Vanilla", layers: 1, quantity: 1 })
-            }}
-          >
-            Reset Calculator
-          </button>
+
         </div>
-          <button
-            className="w-full bg-red-500 text-white p-3 rounded-lg hover:opacity-90"
-            onClick={() => {
-              setIngredients({ flour: 0, sugar: 0, butter: 0, eggs: 0 })
-              setBusinessCosts({ transport: 0, labor: 0, electricity: 0 })
-              setDecorations({ fondant: 0, toppers: 0, flowers: 0 })
-              setProfitPercentage(20)
-              setCakeDetails({ size: "6 Inches", flavor: "Vanilla", layers: 1, quantity: 1 })
-            }}
-          >
-            Reset Calculator
-          </button>
       </div>
-          <button
-            className="w-full bg-red-500 text-white p-3 rounded-lg hover:opacity-90"
-            onClick={() => {
-              setIngredients({ flour: 0, sugar: 0, butter: 0, eggs: 0 })
-              setBusinessCosts({ transport: 0, labor: 0, electricity: 0 })
-              setDecorations({ fondant: 0, toppers: 0, flowers: 0 })
-              setProfitPercentage(20)
-              setCakeDetails({ size: "6 Inches", flavor: "Vanilla", layers: 1, quantity: 1 })
-            }}
-          >
-            Reset Calculator
-          </button>
     </div>
   )
 }
