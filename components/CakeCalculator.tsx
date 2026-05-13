@@ -61,13 +61,15 @@ export default function CakeCalculator() {
     totalCost + expectedProfit
 
   const downloadSummary = async () => {
-    const html2pdf = (await import("html2pdf.js")).default
     const element = document.getElementById("summary")
 
-    if (element) {
-      html2pdf().from(element).save("cake-summary.pdf")
-    }
-  }
+    if (!element) return
+
+    const html2pdf = (await import("html2pdf.js")).default
+
+    html2pdf()
+      .from(element)
+      .save("cake-summary.pdf")
   }
 
   return (
