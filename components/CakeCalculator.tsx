@@ -1,5 +1,6 @@
 "use client"
 
+import html2pdf from "html2pdf.js"
 import { useState } from "react"
 
 export default function CakeCalculator() {
@@ -301,7 +302,7 @@ export default function CakeCalculator() {
         </div>
       </div>
 
-      <div className="bg-[#5c3d2e] text-white p-6 rounded-2xl shadow">
+      <div id="summary" className="bg-[#5c3d2e] text-white p-6 rounded-2xl shadow">
         <h2 className="text-2xl font-bold mb-6">
           Pricing Summary
         </h2>
@@ -351,6 +352,8 @@ export default function CakeCalculator() {
 
           <p className="text-2xl font-bold">
             Selling Price: ₦
+
+          <button\n            className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg mt-4"\n            onClick={() => {\n              const element = document.getElementById("summary")\n              html2pdf().from(element).save("cake-summary.pdf")\n            }}\n          >\n            Download Summary\n          </button>
             {sellingPrice.toLocaleString()}
           </p>
 
