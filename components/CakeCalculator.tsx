@@ -1,6 +1,5 @@
 "use client"
 
-import html2pdf from "html2pdf.js"
 import { useState } from "react"
 
 export default function CakeCalculator() {
@@ -61,12 +60,14 @@ export default function CakeCalculator() {
   const sellingPrice =
     totalCost + expectedProfit
 
-  const downloadSummary = () => {
+  const downloadSummary = async () => {
+    const html2pdf = (await import("html2pdf.js")).default
     const element = document.getElementById("summary")
 
     if (element) {
       html2pdf().from(element).save("cake-summary.pdf")
     }
+  }
   }
 
   return (
