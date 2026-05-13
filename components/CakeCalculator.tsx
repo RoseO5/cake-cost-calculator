@@ -61,9 +61,19 @@ export default function CakeCalculator() {
   const sellingPrice =
     totalCost + expectedProfit
 
+  const downloadSummary = () => {
+    const element = document.getElementById("summary")
+
+    if (element) {
+      html2pdf().from(element).save("cake-summary.pdf")
+    }
+  }
+
   return (
     <div className="grid md:grid-cols-2 gap-8 mt-10">
+
       <div className="bg-white p-6 rounded-2xl shadow">
+
         <h2 className="text-2xl font-bold mb-4">
           Cake Costs
         </h2>
@@ -302,7 +312,11 @@ export default function CakeCalculator() {
         </div>
       </div>
 
-      <div id="summary" className="bg-[#5c3d2e] text-white p-6 rounded-2xl shadow">
+      <div
+        id="summary"
+        className="bg-[#5c3d2e] text-white p-6 rounded-2xl shadow"
+      >
+
         <h2 className="text-2xl font-bold mb-6">
           Pricing Summary
         </h2>
@@ -352,13 +366,19 @@ export default function CakeCalculator() {
 
           <p className="text-2xl font-bold">
             Selling Price: ₦
-
-          <button\n            className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg mt-4"\n            onClick={() => {\n              const element = document.getElementById("summary")\n              html2pdf().from(element).save("cake-summary.pdf")\n            }}\n          >\n            Download Summary\n          </button>
             {sellingPrice.toLocaleString()}
           </p>
 
+          <button
+            className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg mt-4"
+            onClick={downloadSummary}
+          >
+            Download Summary
+          </button>
+
         </div>
       </div>
+
     </div>
   )
 }
