@@ -422,7 +422,7 @@ export default function CakeCalculator() {
 
             <button
               className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg"
-              onClick={() => alert("Button works")}
+              onClick={async () => { alert("Function started"); await downloadSummary(); }}
             >
               Download Summary
             </button>
