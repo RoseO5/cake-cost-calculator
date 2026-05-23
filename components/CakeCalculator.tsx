@@ -422,7 +422,7 @@ export default function CakeCalculator() {
 
             <button
               className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg"
-              onClick={downloadSummary}
+              onClick={() => alert("Button works")}
             >
               Download Summary
             </button>
