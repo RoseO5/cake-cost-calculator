@@ -61,16 +61,31 @@ export default function CakeCalculator() {
     totalCost + expectedProfit
 
   const downloadSummary = async () => {
+  try {
     const element = document.getElementById("summary")
 
-    if (!element) return
+    if (!element) {
+      alert("Summary not found")
+      return
+    }
 
-    const html2pdf = (await import("html2pdf.js")).default
+    const html2pdfModule = await import("html2pdf.js")
+    const html2pdf = html2pdfModule.default ?? html2pdfModule
 
     html2pdf()
+      .set({
+        margin: 0.5,
+        filename: "cake-summary.pdf",
+        html2canvas: { scale: 2 },
+        jsPDF: { format: "a4", orientation: "portrait" },
+      })
       .from(element)
-      .save("cake-summary.pdf")
+      .save()
+  } catch (err) {
+    console.error("PDF error:", err)
+    alert("PDF generation failed")
   }
+}
 
   const saveCalculation = async () => {
     try {
