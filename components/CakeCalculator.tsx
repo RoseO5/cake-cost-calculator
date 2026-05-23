@@ -72,6 +72,37 @@ export default function CakeCalculator() {
       .save("cake-summary.pdf")
   }
 
+  const saveCalculation = async () => {
+    try {
+      const response = await fetch("/api/save-calculation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cakeDetails,
+          ingredients,
+          businessCosts,
+          decorations,
+          totalCost,
+          expectedProfit,
+          sellingPrice,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        alert("Calculation saved successfully!")
+      } else {
+        alert("Failed to save calculation")
+      }
+    } catch (error) {
+      console.error(error)
+      alert("Something went wrong")
+    }
+  }
+
   return (
     <div className="grid md:grid-cols-2 gap-8 mt-10">
 
@@ -372,12 +403,23 @@ export default function CakeCalculator() {
             {sellingPrice.toLocaleString()}
           </p>
 
-          <button
-            className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg mt-4"
-            onClick={downloadSummary}
-          >
-            Download Summary
-          </button>
+          <div className="space-y-3">
+
+            <button
+              className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg"
+              onClick={downloadSummary}
+            >
+              Download Summary
+            </button>
+
+            <button
+              className="w-full bg-green-500 text-white font-bold p-3 rounded-lg"
+              onClick={saveCalculation}
+            >
+              Save Calculation
+            </button>
+
+          </div>
 
         </div>
       </div>
