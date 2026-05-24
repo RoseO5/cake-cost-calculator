@@ -60,17 +60,28 @@ export default function CakeCalculator() {
   const sellingPrice =
     totalCost + expectedProfit
 
-  const downloadSummary = () => {
-  const element = document.getElementById("summary")
+  const downloadSummary = async () => {
+  try {
+    const element = document.getElementById("summary")
 
-  if (!element) {
-    alert("Summary not found")
-    return
+    if (!element) {
+      alert("Summary not found")
+      return
+    }
+
+    const html2pdfModule = await import("html2pdf.js")
+
+    const html2pdf =
+      html2pdfModule.default || html2pdfModule
+
+    html2pdf()
+      .from(element)
+      .save("cake-summary.pdf")
+
+  } catch (error) {
+    console.error(error)
+    alert("PDF failed")
   }
-
-  html2pdf()
-    .from(element)
-    .save("cake-summary.pdf")
 }
 
   const saveCalculation = async () => {
