@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import html2pdf from "html2pdf.js"
 
 export default function CakeCalculator() {
   const [cakeDetails, setCakeDetails] = useState({
