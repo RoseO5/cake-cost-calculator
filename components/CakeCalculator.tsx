@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import html2pdf from "html2pdf.js"
 
 export default function CakeCalculator() {
   const [cakeDetails, setCakeDetails] = useState({
@@ -60,31 +61,17 @@ export default function CakeCalculator() {
   const sellingPrice =
     totalCost + expectedProfit
 
-  const downloadSummary = async () => {
-  try {
-    const element = document.getElementById("summary")
+  const downloadSummary = () => {
+  const element = document.getElementById("summary")
 
-    if (!element) {
-      alert("Summary not found")
-      return
-    }
-
-    const html2pdfModule = await import("html2pdf.js")
-    const html2pdf = html2pdfModule.default ?? html2pdfModule
-
-    html2pdf()
-      .set({
-        margin: 0.5,
-        filename: "cake-summary.pdf",
-        html2canvas: { scale: 2 },
-        jsPDF: { format: "a4", orientation: "portrait" },
-      })
-      .from(element)
-      .save()
-  } catch (err) {
-    console.error("PDF error:", err)
-    alert("PDF generation failed")
+  if (!element) {
+    alert("Summary not found")
+    return
   }
+
+  html2pdf()
+    .from(element)
+    .save("cake-summary.pdf")
 }
 
   const saveCalculation = async () => {
@@ -422,7 +409,7 @@ export default function CakeCalculator() {
 
             <button
               className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg"
-              onClick={async () => { alert("Function started"); await downloadSummary(); }}
+              onClick={downloadSummary}
             >
               Download Summary
             </button>
