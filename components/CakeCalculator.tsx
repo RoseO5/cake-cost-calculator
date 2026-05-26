@@ -321,6 +321,7 @@ export default function CakeCalculator() {
           />
 
           <button
+            type="button"
             className="w-full bg-red-500 text-white p-3 rounded-lg hover:opacity-90"
             onClick={() => {
               setIngredients({
@@ -418,6 +419,7 @@ export default function CakeCalculator() {
           <div className="space-y-3">
 
             <button
+              type="button"
               className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg"
               onClick={downloadSummary}
             >
