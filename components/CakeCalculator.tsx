@@ -323,7 +323,8 @@ export default function CakeCalculator() {
           <button
             type="button"
             className="w-full bg-red-500 text-white p-3 rounded-lg hover:opacity-90"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault()
               setIngredients({
                 flour: 0,
                 sugar: 0,
@@ -421,7 +422,10 @@ export default function CakeCalculator() {
             <button
               type="button"
               className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg"
-              onClick={downloadSummary}
+              onClick={(e) => {
+                e.preventDefault()
+                downloadSummary()
+              }}
             >
               Download Summary
             </button>
