@@ -422,10 +422,7 @@ export default function CakeCalculator() {
             <button
               type="button"
               className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg"
-              onClick={(e) => {
-                e.preventDefault()
-                downloadSummary()
-              }}
+              onClick={downloadSummary}
             >
               Download Summary
             </button>
