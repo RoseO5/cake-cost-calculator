@@ -60,9 +60,33 @@ export default function CakeCalculator() {
   const sellingPrice =
     totalCost + expectedProfit
 
-  const downloadSummary = () => {
-  alert("PDF feature temporarily unavailable")
-}
+const downloadSummary = async () => {
+  if (typeof window === "undefined") return;
+
+  const element = document.getElementById("summary");
+
+  if (!element) return;
+
+  const html2pdf = (await import("html2pdf.js")).default;
+
+  await html2pdf()
+    .set({
+      margin: 0.5,
+      filename: `cake-calculation-${Date.now()}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+      },
+      jsPDF: {
+        unit: "in",
+        format: "a4",
+        orientation: "portrait",
+      },
+    })
+    .from(element)
+    .save();
+};
 
   const saveCalculation = async () => {
     try {
@@ -421,4 +445,3 @@ export default function CakeCalculator() {
 
     </div>
   )
-}
