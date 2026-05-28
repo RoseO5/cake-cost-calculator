@@ -61,31 +61,26 @@ export default function CakeCalculator() {
     totalCost + expectedProfit
 
 const downloadSummary = async () => {
-  if (typeof window === "undefined") return;
+  const { jsPDF } = await import("jspdf");
 
-  const element = document.getElementById("summary");
+  const doc = new jsPDF();
 
-  if (!element) return;
+  doc.setFontSize(18);
+  doc.text("Cake Pricing Summary", 20, 20);
 
-  const html2pdf = (await import("html2pdf.js")).default;
+  doc.setFontSize(12);
+  doc.text(`Cake Size: ${cakeDetails.size}`, 20, 40);
+  doc.text(`Flavor: ${cakeDetails.flavor}`, 20, 50);
+  doc.text(`Layers: ${cakeDetails.layers}`, 20, 60);
+  doc.text(`Quantity: ${cakeDetails.quantity}`, 20, 70);
+  doc.text(`Ingredient Total: NGN ${ingredientTotal.toLocaleString()}`, 20, 90);
+  doc.text(`Business Costs: NGN ${businessTotal.toLocaleString()}`, 20, 100);
+  doc.text(`Decoration Costs: NGN ${decorationTotal.toLocaleString()}`, 20, 110);
+  doc.text(`Production Cost: NGN ${totalCost.toLocaleString()}`, 20, 120);
+  doc.text(`Expected Profit: NGN ${expectedProfit.toLocaleString()}`, 20, 130);
+  doc.text(`Selling Price: NGN ${sellingPrice.toLocaleString()}`, 20, 150);
 
-  await html2pdf()
-    .set({
-      margin: 0.5,
-      filename: `cake-calculation-${Date.now()}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
-      },
-      jsPDF: {
-        unit: "in",
-        format: "a4",
-        orientation: "portrait",
-      },
-    })
-    .from(element)
-    .save();
+  doc.save(`cake-summary-${Date.now()}.pdf`);
 };
 
   const saveCalculation = async () => {
