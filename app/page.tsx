@@ -1,3 +1,4 @@
+import AuthButtons from "@/components/AuthButtons"
 import CakeCalculator from "@/components/CakeCalculator"
 
 export default function Home() {
@@ -12,6 +13,10 @@ export default function Home() {
           Calculate cake production cost,
           profit, and selling price instantly.
         </p>
+
+        <div className="flex justify-center mt-6">
+          <AuthButtons />
+        </div>
 
         <CakeCalculator />
       </div>
