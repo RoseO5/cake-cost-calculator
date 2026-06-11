@@ -440,6 +440,14 @@ const downloadSummary = async () => {
               className="w-full bg-green-500 text-white font-bold p-3 rounded-lg"
               onClick={saveCalculation}
             >
+            <button
+              type="button"
+              className="w-full bg-purple-600 text-white font-bold p-3 rounded-lg"
+              onClick={downloadCustomerQuote}
+            >
+              Generate Customer Quote
+            </button>
+
               Save Calculation
             </button>
 
@@ -451,3 +459,27 @@ const downloadSummary = async () => {
     </div>
   )
 }
+
+const downloadCustomerQuote = async () => {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF();
+
+  doc.setFontSize(18);
+  doc.text("Cake Order Quote", 20, 20);
+
+  doc.setFontSize(12);
+
+  doc.text(`Customer Name: ${customerInfo.name || "N/A"}`, 20, 40);
+  doc.text(`Phone: ${customerInfo.phone || "N/A"}`, 20, 50);
+  doc.text(`Event Date: ${customerInfo.eventDate || "N/A"}`, 20, 60);
+
+  doc.text(`Cake Size: ${cakeDetails.size}`, 20, 80);
+  doc.text(`Flavor: ${cakeDetails.flavor}`, 20, 90);
+  doc.text(`Layers: ${cakeDetails.layers}`, 20, 100);
+  doc.text(`Quantity: ${cakeDetails.quantity}`, 20, 110);
+
+  doc.text(`Total Price: ₦${sellingPrice.toLocaleString()}`, 20, 130);
+
+  doc.save(`customer-quote-${Date.now()}.pdf`);
+};
+
