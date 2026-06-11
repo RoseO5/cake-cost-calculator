@@ -197,7 +197,7 @@ const downloadSummary = async () => {
             onChange={(e) =>
               setIngredients({
                 ...ingredients,
-                flour: Number(e.target.value),
+                flour: e.target.value === "" ? 0 : Number(e.target.value),
               })
             }
           />
@@ -210,7 +210,7 @@ const downloadSummary = async () => {
             onChange={(e) =>
               setIngredients({
                 ...ingredients,
-                sugar: Number(e.target.value),
+                sugar: e.target.value === "" ? 0 : Number(e.target.value),
               })
             }
           />
@@ -223,7 +223,7 @@ const downloadSummary = async () => {
             onChange={(e) =>
               setIngredients({
                 ...ingredients,
-                butter: Number(e.target.value),
+                butter: e.target.value === "" ? 0 : Number(e.target.value),
               })
             }
           />
@@ -236,7 +236,7 @@ const downloadSummary = async () => {
             onChange={(e) =>
               setIngredients({
                 ...ingredients,
-                eggs: Number(e.target.value),
+                eggs: e.target.value === "" ? 0 : Number(e.target.value),
               })
             }
           />
@@ -249,7 +249,7 @@ const downloadSummary = async () => {
             onChange={(e) =>
               setBusinessCosts({
                 ...businessCosts,
-                transport: Number(e.target.value),
+                transport: e.target.value === "" ? 0 : Number(e.target.value),
               })
             }
           />
@@ -262,7 +262,7 @@ const downloadSummary = async () => {
             onChange={(e) =>
               setBusinessCosts({
                 ...businessCosts,
-                labor: Number(e.target.value),
+                labor: e.target.value === "" ? 0 : Number(e.target.value),
               })
             }
           />
@@ -275,7 +275,7 @@ const downloadSummary = async () => {
             onChange={(e) =>
               setBusinessCosts({
                 ...businessCosts,
-                electricity: Number(e.target.value),
+                electricity: e.target.value === "" ? 0 : Number(e.target.value),
               })
             }
           />
@@ -288,7 +288,7 @@ const downloadSummary = async () => {
             onChange={(e) =>
               setDecorations({
                 ...decorations,
-                fondant: Number(e.target.value),
+                fondant: e.target.value === "" ? 0 : Number(e.target.value),
               })
             }
           />
@@ -301,7 +301,7 @@ const downloadSummary = async () => {
             onChange={(e) =>
               setDecorations({
                 ...decorations,
-                toppers: Number(e.target.value),
+                toppers: e.target.value === "" ? 0 : Number(e.target.value),
               })
             }
           />
@@ -314,7 +314,7 @@ const downloadSummary = async () => {
             onChange={(e) =>
               setDecorations({
                 ...decorations,
-                flowers: Number(e.target.value),
+                flowers: e.target.value === "" ? 0 : Number(e.target.value),
               })
             }
           />
