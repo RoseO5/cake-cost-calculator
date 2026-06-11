@@ -70,6 +70,25 @@ export default function CakeCalculator() {
                   onClick={openCustomerQuote}
                 >
                   Generate Customer Quote
+
+              <div className="space-y-3 mt-4">
+                <button
+                  type="button"
+                  className="w-full bg-purple-600 text-white font-bold p-3 rounded-lg"
+                  onClick={openCustomerQuote}
+                >
+                  Generate Customer Quote
+                </button>
+
+                <button
+                  type="button"
+                  className="w-full bg-gray-700 text-white font-bold p-3 rounded-lg"
+                  onClick={saveCalculation}
+                >
+                  Save Calculation
+                </button>
+              </div>
+
                 </button>
 
                 <button
@@ -451,22 +470,6 @@ const downloadSummary = async () => {
           </p>
 
           <div className="space-y-3">
-
-            <button
-              type="button"
-              className="w-full bg-white text-[#5c3d2e] font-bold p-3 rounded-lg"
-              onClick={downloadSummary}
-            >
-              Download Summary
-            </button>
-
-            <button
-        </div>
-      </div>
-
-    </div>
-  )
-}
 
 const downloadCustomerQuote = async () => {
   const { jsPDF } = await import("jspdf");
