@@ -30,6 +30,7 @@ export default function CakeCalculator() {
   })
 
   const [profitPercentage, setProfitPercentage] = useState(20)
+  const [showQuote, setShowQuote] = useState(false)
 
   const ingredientTotal =
     Number(ingredients.flour) +
@@ -59,6 +60,29 @@ export default function CakeCalculator() {
 
   const sellingPrice =
     totalCost + expectedProfit
+
+  const openCustomerQuote = () => {
+
+              <div className="space-y-3 mt-4">
+                <button
+                  type="button"
+                  className="w-full bg-purple-600 text-white font-bold p-3 rounded-lg"
+                  onClick={openCustomerQuote}
+                >
+                  Generate Customer Quote
+                </button>
+
+                <button
+                  type="button"
+                  className="w-full bg-gray-700 text-white font-bold p-3 rounded-lg"
+                  onClick={saveCalculation}
+                >
+                  Save Calculation
+                </button>
+              </div>
+
+    setShowQuote(true)
+  }
 
 const downloadSummary = async () => {
   const { jsPDF } = await import("jspdf");
@@ -437,22 +461,6 @@ const downloadSummary = async () => {
             </button>
 
             <button
-              className="w-full bg-green-500 text-white font-bold p-3 rounded-lg"
-              onClick={saveCalculation}
-            >
-            <button
-              type="button"
-              className="w-full bg-purple-600 text-white font-bold p-3 rounded-lg"
-              onClick={downloadCustomerQuote}
-            >
-              Generate Customer Quote
-            </button>
-
-              Save Calculation
-            </button>
-
-          </div>
-
         </div>
       </div>
 
@@ -482,4 +490,49 @@ const downloadCustomerQuote = async () => {
 
   doc.save(`customer-quote-${Date.now()}.pdf`);
 };
+
+
+{showQuote && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+    <div className="bg-white rounded-2xl p-6 w-full max-w-lg">
+
+      <h2 className="text-2xl font-bold mb-4">Customer Quote Preview</h2>
+
+      <div className="space-y-2 text-gray-700">
+        <p><strong>Name:</strong> {customerInfo.name || "N/A"}</p>
+        <p><strong>Phone:</strong> {customerInfo.phone || "N/A"}</p>
+        <p><strong>Date:</strong> {customerInfo.eventDate || "N/A"}</p>
+
+        <hr />
+
+        <p><strong>Cake:</strong> {cakeDetails.size} / {cakeDetails.flavor}</p>
+        <p><strong>Layers:</strong> {cakeDetails.layers}</p>
+        <p><strong>Quantity:</strong> {cakeDetails.quantity}</p>
+
+        <hr />
+
+        <p className="text-xl font-bold">
+          Total: ₦{sellingPrice.toLocaleString()}
+        </p>
+      </div>
+
+      <div className="flex gap-3 mt-6">
+        <button
+          onClick={() => setShowQuote(false)}
+          className="flex-1 bg-gray-300 p-2 rounded"
+        >
+          Close
+        </button>
+
+        <button
+          onClick={downloadSummary}
+          className="flex-1 bg-green-600 text-white p-2 rounded"
+        >
+          Download PDF
+        </button>
+      </div>
+
+    </div>
+  </div>
+)}
 
