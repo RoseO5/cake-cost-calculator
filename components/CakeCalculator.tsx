@@ -30,6 +30,8 @@ export default function CakeCalculator() {
   })
 
   const [profitPercentage, setProfitPercentage] = useState(20)
+const [quoteUnlocked, setQuoteUnlocked] = useState(false)
+const [customerInfo, setCustomerInfo] = useState({ name: "", phone: "", eventDate: "" })
 
   const ingredientTotal =
     Number(ingredients.flour) +
@@ -113,6 +115,24 @@ const downloadSummary = async () => {
       alert("Something went wrong")
     }
   }
+
+const handleQuotePayment = () => {
+  const handler = (window as any).PaystackPop.setup({
+    key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+    email: "baker@cakeapp.com",
+    amount: 200 * 100,
+    currency: "NGN",
+    callback: function () {
+      setQuoteUnlocked(true)
+      alert("Payment successful!")
+    },
+    onClose: function () {
+      alert("Payment cancelled")
+    },
+  })
+
+  handler.openIframe()
+}
 
   return (
     <div className="grid md:grid-cols-2 gap-8 mt-10">
@@ -434,6 +454,32 @@ const downloadSummary = async () => {
               onClick={downloadSummary}
             >
               Download Summary
+
+<div className="mt-6 border-t pt-6">
+  <h3 className="text-xl font-bold mb-3">Customer Quote Generator</h3>
+
+  {!quoteUnlocked ? (
+    <button onClick={handleQuotePayment} className="w-full bg-blue-600 text-white p-3 rounded-lg">
+      Generate Quote (₦200)
+    </button>
+  ) : (
+    <div className="space-y-3">
+      <input className="w-full border p-2 rounded" placeholder="Customer Name" onChange={(e)=>setCustomerInfo({...customerInfo,name:e.target.value})}/>
+      <input className="w-full border p-2 rounded" placeholder="Phone" onChange={(e)=>setCustomerInfo({...customerInfo,phone:e.target.value})}/>
+      <input type="date" className="w-full border p-2 rounded" onChange={(e)=>setCustomerInfo({...customerInfo,eventDate:e.target.value})}/>
+
+      <button className="w-full bg-green-600 text-white p-3 rounded-lg"
+        onClick={() => {
+          const message = `Hello ${customerInfo.name || "Customer"},\n\nCake: ${cakeDetails.size} / ${cakeDetails.flavor}\nLayers: ${cakeDetails.layers}\nQuantity: ${cakeDetails.quantity}\n\nTotal: ₦${sellingPrice.toLocaleString()}`
+
+          const url = `https://wa.me/${customerInfo.phone}?text=${encodeURIComponent(message)}`
+          window.open(url, "_blank")
+        }}
+      >Send WhatsApp Quote</button>
+    </div>
+  )}
+</div>
+
             </button>
 
             <button
