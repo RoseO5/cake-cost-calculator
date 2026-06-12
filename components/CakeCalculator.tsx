@@ -192,7 +192,7 @@ const downloadSummary = async () => {
           <input
             type="number"
             placeholder="Flour Cost"
-            value={ingredients.flour}
+            value={ingredients.flour === 0 ? "" : ingredients.flour}
             className="w-full border p-3 rounded-lg"
             onChange={(e) =>
               setIngredients({
@@ -205,7 +205,7 @@ const downloadSummary = async () => {
           <input
             type="number"
             placeholder="Sugar Cost"
-            value={ingredients.sugar}
+            value={ingredients.sugar === 0 ? "" : ingredients.sugar}
             className="w-full border p-3 rounded-lg"
             onChange={(e) =>
               setIngredients({
@@ -218,7 +218,7 @@ const downloadSummary = async () => {
           <input
             type="number"
             placeholder="Butter Cost"
-            value={ingredients.butter}
+            value={ingredients.butter === 0 ? "" : ingredients.butter}
             className="w-full border p-3 rounded-lg"
             onChange={(e) =>
               setIngredients({
@@ -231,7 +231,7 @@ const downloadSummary = async () => {
           <input
             type="number"
             placeholder="Eggs Cost"
-            value={ingredients.eggs}
+            value={ingredients.eggs === 0 ? "" : ingredients.eggs}
             className="w-full border p-3 rounded-lg"
             onChange={(e) =>
               setIngredients({
@@ -244,7 +244,7 @@ const downloadSummary = async () => {
           <input
             type="number"
             placeholder="Transport Cost"
-            value={businessCosts.transport}
+            value={businessCosts.transport || ""}
             className="w-full border p-3 rounded-lg"
             onChange={(e) =>
               setBusinessCosts({
@@ -257,7 +257,7 @@ const downloadSummary = async () => {
           <input
             type="number"
             placeholder="Labor Cost"
-            value={businessCosts.labor}
+            value={businessCosts.labor || ""}
             className="w-full border p-3 rounded-lg"
             onChange={(e) =>
               setBusinessCosts({
@@ -270,7 +270,7 @@ const downloadSummary = async () => {
           <input
             type="number"
             placeholder="Electricity/Gas"
-            value={businessCosts.electricity}
+            value={businessCosts.electricity || ""}
             className="w-full border p-3 rounded-lg"
             onChange={(e) =>
               setBusinessCosts({
@@ -283,7 +283,7 @@ const downloadSummary = async () => {
           <input
             type="number"
             placeholder="Fondant Cost"
-            value={decorations.fondant}
+            value={decorations.fondant || ""}
             className="w-full border p-3 rounded-lg"
             onChange={(e) =>
               setDecorations({
@@ -296,7 +296,7 @@ const downloadSummary = async () => {
           <input
             type="number"
             placeholder="Cake Topper Cost"
-            value={decorations.toppers}
+            value={decorations.toppers || ""}
             className="w-full border p-3 rounded-lg"
             onChange={(e) =>
               setDecorations({
@@ -309,7 +309,7 @@ const downloadSummary = async () => {
           <input
             type="number"
             placeholder="Flowers Decoration Cost"
-            value={decorations.flowers}
+            value={decorations.flowers || ""}
             className="w-full border p-3 rounded-lg"
             onChange={(e) =>
               setDecorations({
