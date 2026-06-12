@@ -454,6 +454,7 @@ const handleQuotePayment = () => {
               onClick={downloadSummary}
             >
               Download Summary
+              </button>
 
 <div className="mt-6 border-t pt-6">
   <h3 className="text-xl font-bold mb-3">Customer Quote Generator</h3>
@@ -479,8 +480,6 @@ const handleQuotePayment = () => {
     </div>
   )}
 </div>
-
-            </button>
 
             <button
               className="w-full bg-green-500 text-white font-bold p-3 rounded-lg"
