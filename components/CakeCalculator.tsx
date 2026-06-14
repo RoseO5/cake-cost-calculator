@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 export default function CakeCalculator() {
   const [cakeDetails, setCakeDetails] = useState({
@@ -31,7 +32,15 @@ export default function CakeCalculator() {
 
   const [profitPercentage, setProfitPercentage] = useState(20)
 const [quoteUnlocked, setQuoteUnlocked] = useState(false)
+  const { data: session } = useSession()
 const [customerInfo, setCustomerInfo] = useState({ name: "", phone: "", eventDate: "" })
+  useEffect(() => {
+    const accessUntil = localStorage.getItem("quoteAccessUntil")
+    if (accessUntil && Date.now() < Number(accessUntil)) {
+      setQuoteUnlocked(true)
+    }
+  }, [])
+
 
   const ingredientTotal =
     Number(ingredients.flour) +
@@ -119,11 +128,12 @@ const downloadSummary = async () => {
 const handleQuotePayment = () => {
   const handler = (window as any).PaystackPop.setup({
     key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
-    email: "baker@cakeapp.com",
-    amount: 200 * 100,
+    email: session?.user?.email || "baker@cakeapp.com",
+    amount: 500 * 100,
     currency: "NGN",
     callback: function () {
       setQuoteUnlocked(true)
+      localStorage.setItem("quoteAccessUntil", String(Date.now() + 24 * 60 * 60 * 1000))
       alert("Payment successful!")
     },
     onClose: function () {
@@ -461,7 +471,7 @@ const handleQuotePayment = () => {
 
   {!quoteUnlocked ? (
     <button onClick={handleQuotePayment} className="w-full bg-blue-600 text-white p-3 rounded-lg">
-      Generate Quote (₦200)
+      Generate Quote (₦500 - 24hr Access)
     </button>
   ) : (
     <div className="space-y-3">
