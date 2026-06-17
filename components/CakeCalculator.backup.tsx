@@ -35,20 +35,7 @@ const [quoteUnlocked, setQuoteUnlocked] = useState(false)
   const { data: session } = useSession()
 const [customerInfo, setCustomerInfo] = useState({ name: "", phone: "", eventDate: "" })
   useEffect(() => {
-  const email = session?.user?.email
-  if (!email) return
-
-  fetch("/api/check-access", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.unlocked) setQuoteUnlocked(true)
-    })
-}, [session])
-    const email = session?.user?.email
+    const accessUntil = localStorage.getItem("quoteAccessUntil")
     if (accessUntil && Date.now() < Number(accessUntil)) {
       setQuoteUnlocked(true)
     }
@@ -147,7 +134,7 @@ const handleQuotePayment = () => {
     callback: function (response: any) {
         localStorage.setItem("paystack_reference", response.reference)
       setQuoteUnlocked(true)
-      
+      localStorage.setItem("quoteAccessUntil", String(Date.now() + 24 * 60 * 60 * 1000))
       alert("Payment successful!")
     },
     onClose: function () {
