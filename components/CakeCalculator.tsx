@@ -35,24 +35,6 @@ const [quoteUnlocked, setQuoteUnlocked] = useState(false)
   const { data: session } = useSession()
 const [customerInfo, setCustomerInfo] = useState({ name: "", phone: "", eventDate: "" })
   useEffect(() => {
-  const email = session?.user?.email
-  if (!email) return
-
-  fetch("/api/check-access", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.unlocked) setQuoteUnlocked(true)
-    })
-}, [session])
-    const email = session?.user?.email
-    if (accessUntil && Date.now() < Number(accessUntil)) {
-      setQuoteUnlocked(true)
-    }
-  }, [])
 
 
   const ingredientTotal =
