@@ -131,7 +131,8 @@ const handleQuotePayment = () => {
     email: session?.user?.email || "baker@cakeapp.com",
     amount: 500 * 100,
     currency: "NGN",
-    callback: function () {
+    callback: function (response) {
+        localStorage.setItem("paystack_reference", response.reference)
       setQuoteUnlocked(true)
       localStorage.setItem("quoteAccessUntil", String(Date.now() + 24 * 60 * 60 * 1000))
       alert("Payment successful!")
