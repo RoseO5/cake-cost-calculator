@@ -119,31 +119,7 @@ const downloadSummary = async () => {
     }
   }
 
-
-  const [cakePhotoUrl, setCakePhotoUrl] = useState<string | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
-
-  const handlePhotoUpload = async (e: any) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setIsUploading(true);
-    const formData = new FormData();
-    formData.append('image', file);
-    try {
-      const res = await fetch('https://api.imgbb.com/1/upload?key=33e1efbd19d3d9299b5f33c88748566f&expiration=300', { 
-        method: 'POST', 
-        body: formData 
-      });
-      const data = await res.json();
-      if (data.success) {
-        setCakePhotoUrl(data.data.url);
-        localStorage.setItem('cake_photo_url', data.data.url);
-      }
-    } catch (err) { console.error(err); }
-    finally { setIsUploading(false); }
-  };
-
-  const handleQuotePayment = () => {
+const handleQuotePayment = () => {
   const handler = (window as any).PaystackPop.setup({
     key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
     email: session?.user?.email || "baker@cakeapp.com",
@@ -500,7 +476,7 @@ const downloadSummary = async () => {
 
       <button className="w-full bg-green-600 text-white p-3 rounded-lg"
         onClick={() => {
-          const message = `Hello ${customerInfo.name || "Customer"},\n\nCake: ${cakeDetails.size} / ${cakeDetails.flavor}\nLayers: ${cakeDetails.layers}\nQuantity: ${cakeDetails.quantity}\n\nTotal: ₦${sellingPrice.toLocaleString()};Thank you for your \n\n📸 Cake Photo: ${cakePhotoUrl || "No photo attached"}order!`;
+          const message = `Hello ${customerInfo.name || "Customer"},\n\nCake: ${cakeDetails.size} / ${cakeDetails.flavor}\nLayers: ${cakeDetails.layers}\nQuantity: ${cakeDetails.quantity}\n\nTotal: ₦${sellingPrice.toLocaleString()};Thank you for your order!`;
 
           const url = `https://wa.me/${customerInfo.phone}?text=${encodeURIComponent(message)}`
           window.open(url, "_blank")
