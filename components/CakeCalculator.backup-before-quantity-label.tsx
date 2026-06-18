@@ -241,7 +241,6 @@ const downloadSummary = async () => {
             <option value={4}>4 Layers</option>
           </select>
 
-          <label className="block text-sm font-semibold mb-2">Number of Cakes</label>
           <input
             type="number"
             placeholder="Number of Cakes"
