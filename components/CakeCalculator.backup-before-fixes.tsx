@@ -77,7 +77,7 @@ const downloadSummary = async () => {
   doc.text(`Cake Size: ${cakeDetails.size}`, 20, 40);
   doc.text(`Flavor: ${cakeDetails.flavor}`, 20, 50);
   doc.text(`Layers: ${cakeDetails.layers}`, 20, 60);
-  doc.text(`Number of Cakes: ${cakeDetails.quantity}`, 20, 70);
+  doc.text(`Quantity: ${cakeDetails.quantity}`, 20, 70);
   doc.text(`Ingredient Total: NGN ${ingredientTotal.toLocaleString()}`, 20, 90);
   doc.text(`Business Costs: NGN ${businessTotal.toLocaleString()}`, 20, 100);
   doc.text(`Decoration Costs: NGN ${decorationTotal.toLocaleString()}`, 20, 110);
@@ -163,23 +163,6 @@ const downloadSummary = async () => {
   handler.openIframe()
 }
 
-  
-  useEffect(() => {
-    const email = session?.user?.email;
-    if (!email) return;
-    fetch("/api/check-access", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.unlocked) {
-          setQuoteUnlocked(true);
-        }
-      });
-  }, [session]);
-
   return (
     <div className="grid md:grid-cols-2 gap-8 mt-10">
 
@@ -243,7 +226,7 @@ const downloadSummary = async () => {
 
           <input
             type="number"
-            placeholder="Number of Cakes"
+            placeholder="Quantity"
             className="w-full border p-3 rounded-lg"
             value={cakeDetails.quantity}
             min={1}
@@ -459,7 +442,7 @@ const downloadSummary = async () => {
           </p>
 
           <p>
-            Number of Cakes: {cakeDetails.quantity}
+            Quantity: {cakeDetails.quantity}
           </p>
 
           <p>
@@ -517,7 +500,7 @@ const downloadSummary = async () => {
 
       <button className="w-full bg-green-600 text-white p-3 rounded-lg"
         onClick={() => {
-          const message = `Hello ${customerInfo.name || "Customer"},\n\nCake: ${cakeDetails.size} / ${cakeDetails.flavor}\nLayers: ${cakeDetails.layers}\nNumber of Cakes: ${cakeDetails.quantity}\n\nTotal: ₦${sellingPrice.toLocaleString()};Thank you for your \n\n📸 Cake Photo: ${cakePhotoUrl || "No photo attached"}order!`;
+          const message = `Hello ${customerInfo.name || "Customer"},\n\nCake: ${cakeDetails.size} / ${cakeDetails.flavor}\nLayers: ${cakeDetails.layers}\nQuantity: ${cakeDetails.quantity}\n\nTotal: ₦${sellingPrice.toLocaleString()};Thank you for your \n\n📸 Cake Photo: ${cakePhotoUrl || "No photo attached"}order!`;
 
           const url = `https://wa.me/${customerInfo.phone}?text=${encodeURIComponent(message)}`
           window.open(url, "_blank")
