@@ -149,25 +149,11 @@ const downloadSummary = async () => {
     email: session?.user?.email || "baker@cakeapp.com",
     amount: 500 * 100,
     currency: "NGN",
-    callback: async function (response: any) {
-      try {
-        const verifyRes = await fetch("/api/verify-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ reference: response.reference })
-        });
-        const verifyData = await verifyRes.json();
-        if (verifyData.success) {
-          localStorage.setItem("paystack_reference", response.reference);
-          setQuoteUnlocked(true);
-          alert("Payment successful! Quote unlocked.");
-        } else {
-          alert("Payment verification failed. Please contact support.");
-        }
-      } catch (err) {
-        console.error("Verification error:", err);
-        alert("Payment verification error. Please refresh and try again.");
-      }
+    callback: function (response: any) {
+        localStorage.setItem("paystack_reference", response.reference)
+      setQuoteUnlocked(true)
+      
+      alert("Payment successful!")
     },
     onClose: function () {
       alert("Payment cancelled")
