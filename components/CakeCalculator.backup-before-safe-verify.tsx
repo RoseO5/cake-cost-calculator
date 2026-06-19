@@ -152,7 +152,6 @@ const downloadSummary = async () => {
     callback: function (response: any) {
         localStorage.setItem("paystack_reference", response.reference)
       setQuoteUnlocked(true)
-      fetch("/api/verify-payment", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ reference: response.reference }) }).catch(() => {});
       
       alert("Payment successful!")
     },
