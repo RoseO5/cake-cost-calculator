@@ -181,22 +181,6 @@ const downloadSummary = async () => {
       });
   }, [session]);
 
-
-  useEffect(() => {
-    const email = session?.user?.email;
-    if (!email) return;
-    fetch("/api/check-access", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.unlocked) {
-          setQuoteUnlocked(true);
-        }
-      });
-  }, [session]);
   return (
     <div className="grid md:grid-cols-2 gap-8 mt-10">
 
