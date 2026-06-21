@@ -32,7 +32,6 @@ export default function CakeCalculator() {
 
   const [profitPercentage, setProfitPercentage] = useState(20)
 const [quoteUnlocked, setQuoteUnlocked] = useState(false)
-  const [pendingReference, setPendingReference] = useState<string | null>(null);
   const { data: session } = useSession()
 const [customerInfo, setCustomerInfo] = useState({ name: "", phone: "", eventDate: "" })
 
@@ -151,7 +150,6 @@ const downloadSummary = async () => {
     amount: 500 * 100,
     currency: "NGN",
     callback: function (response: any) {
-      setPendingReference(response.reference);
         localStorage.setItem("paystack_reference", response.reference)
       setQuoteUnlocked(true)
       fetch("/api/verify-payment", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ reference: response.reference, email: session?.user?.email }) }).catch(() => {});
@@ -526,43 +524,9 @@ const downloadSummary = async () => {
   <h3 className="text-xl font-bold mb-3">Customer Quote Generator</h3>
 
   {!quoteUnlocked ? (
-    <div className="space-y-3">
-      <button onClick={handleQuotePayment} className="w-full bg-blue-600 text-white p-3 rounded-lg">
-        Generate Quote (₦500 - 24hr Access)
-      </button>
-      {pendingReference && (
-        <button 
-          onClick={async () => {
-            const email = session?.user?.email;
-            if (!email) {
-              alert("Please log in first");
-              return;
-            }
-            alert("⏳ Verifying payment...");
-            try {
-              const res = await fetch("/api/verify-payment", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ reference: pendingReference, email })
-              });
-              const data = await res.json();
-              if (data.success) {
-                setQuoteUnlocked(true);
-                setPendingReference(null);
-                alert("✅ Payment verified! Quote unlocked.");
-              } else {
-                alert("❌ Payment not confirmed yet. Please wait a moment and try again.");
-              }
-            } catch (err: any) {
-              alert("❌ Error: " + (err.message || "Unknown error"));
-            }
-          }}
-          className="w-full bg-green-600 text-white p-3 rounded-lg"
-        >
-          I've Made Payment - Verify Now
-        </button>
-      )}
-    </div>
+    <button onClick={handleQuotePayment} className="w-full bg-blue-600 text-white p-3 rounded-lg">
+      Generate Quote (₦500 - 24hr Access)
+    </button>
   ) : (
     <div className="space-y-3">
       <input className="w-full border p-2 rounded" placeholder="Customer Name" onChange={(e)=>setCustomerInfo({...customerInfo,name:e.target.value})}/>
