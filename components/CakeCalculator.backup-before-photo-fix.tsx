@@ -583,13 +583,10 @@ const downloadSummary = async () => {
       <input className="w-full border p-2 rounded" placeholder="Customer Name" onChange={(e)=>setCustomerInfo({...customerInfo,name:e.target.value})}/>
       <input className="w-full border p-2 rounded" placeholder="Phone" onChange={(e)=>setCustomerInfo({...customerInfo,phone:e.target.value})}/>
       <input type="date" className="w-full border p-2 rounded" onChange={(e)=>setCustomerInfo({...customerInfo,eventDate:e.target.value})}/>
-      <input type="file" accept="image/*" onChange={handlePhotoUpload} className="w-full border p-2 rounded" />
-      {isUploading && <p className="text-blue-600">Uploading photo...</p>}
-      {cakePhotoUrl && <p className="text-green-600">✅ Photo uploaded!</p>}
 
       <button className="w-full bg-green-600 text-white p-3 rounded-lg"
         onClick={() => {
-          const message = `Hello ${customerInfo.name || "Customer"},\n\nCake: ${cakeDetails.size} / ${cakeDetails.flavor}\nLayers: ${cakeDetails.layers}\nNumber of Cakes: ${cakeDetails.quantity}\n\nTotal: ₦${sellingPrice.toLocaleString()}\n\n📸 Cake Photo: ${cakePhotoUrl || "No photo attached"}\n\nThank you for your order!`;
+          const message = `Hello ${customerInfo.name || "Customer"},\n\nCake: ${cakeDetails.size} / ${cakeDetails.flavor}\nLayers: ${cakeDetails.layers}\nNumber of Cakes: ${cakeDetails.quantity}\n\nTotal: ₦${sellingPrice.toLocaleString()};Thank you for your \n\n📸 Cake Photo: ${cakePhotoUrl || "No photo attached"}order!`;
 
           const url = `https://wa.me/${customerInfo.phone}?text=${encodeURIComponent(message)}`
           window.open(url, "_blank")
