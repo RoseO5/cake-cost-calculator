@@ -152,7 +152,6 @@ const downloadSummary = async () => {
     currency: "NGN",
     callback: function (response: any) {
       setPendingReference(response.reference);
-      localStorage.setItem("pending_reference", response.reference);
         localStorage.setItem("paystack_reference", response.reference)
       setQuoteUnlocked(true)
       fetch("/api/verify-payment", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ reference: response.reference, email: session?.user?.email }) }).catch(() => {});
@@ -184,13 +183,6 @@ const downloadSummary = async () => {
       });
   }, [session]);
 
-  useEffect(() => {
-    const savedRef = localStorage.getItem("pending_reference");
-    if (savedRef) {
-      setPendingReference(savedRef);
-    }
-  }, []);
-
 
   useEffect(() => {
     const email = session?.user?.email;
@@ -207,13 +199,6 @@ const downloadSummary = async () => {
         }
       });
   }, [session]);
-
-  useEffect(() => {
-    const savedRef = localStorage.getItem("pending_reference");
-    if (savedRef) {
-      setPendingReference(savedRef);
-    }
-  }, []);
   return (
     <div className="grid md:grid-cols-2 gap-8 mt-10">
 
