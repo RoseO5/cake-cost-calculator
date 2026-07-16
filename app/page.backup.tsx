@@ -1,5 +1,5 @@
 import AuthButtons from "@/components/AuthButtons"
-import ProductSelector from "../components/ProductSelector";
+import CakeCalculator from "@/components/CakeCalculator"
 
 export default function Home() {
   return (
@@ -18,7 +18,7 @@ export default function Home() {
           <AuthButtons />
         </div>
 
-        <ProductSelector />
+        <CakeCalculator />
       </div>
     </main>
   )

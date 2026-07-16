@@ -1,0 +1,34 @@
+"use client"
+
+import { useState } from "react";
+import CakeCalculator from "./CakeCalculator";
+import DoughnutCalculator from "./DoughnutCalculator";
+
+export default function ProductSelector() {
+  const [activeTab, setActiveTab] = useState<"cake" | "doughnut">("cake");
+
+  return (
+    <div className="max-w-6xl mx-auto p-4">
+      <div className="flex space-x-2 mb-6 bg-gray-100 p-2 rounded-xl w-fit mx-auto">
+        <button
+          onClick={() => setActiveTab("cake")}
+          className={`px-6 py-3 rounded-lg font-bold transition-all ${
+            activeTab === "cake" ? "bg-[#5c3d2e] text-white shadow-lg" : "text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          🎂 Cake Calculator
+        </button>
+        <button
+          onClick={() => setActiveTab("doughnut")}
+          className={`px-6 py-3 rounded-lg font-bold transition-all ${
+            activeTab === "doughnut" ? "bg-[#5c3d2e] text-white shadow-lg" : "text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          🍩 Doughnut Calculator
+        </button>
+      </div>
+
+      {activeTab === "cake" ? <CakeCalculator /> : <DoughnutCalculator />}
+    </div>
+  );
+}
