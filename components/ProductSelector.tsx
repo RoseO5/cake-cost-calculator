@@ -4,9 +4,10 @@ import { useState } from "react";
 import CakeCalculator from "./CakeCalculator";
 import DoughnutCalculator from "./DoughnutCalculator";
 import MeatPieCalculator from "./MeatPieCalculator";
+import PuffPuffCalculator from "./PuffPuffCalculator";
 
 export default function ProductSelector() {
-  const [activeTab, setActiveTab] = useState<"cake" | "doughnut" | "meatpie">("cake");
+  const [activeTab, setActiveTab] = useState<"cake" | "doughnut" | "meatpie" | "puffpuff">("cake");
 
   return (
     <div className="max-w-6xl mx-auto p-4">
@@ -27,7 +28,7 @@ export default function ProductSelector() {
         >
           🍩 Doughnut Calculator
         </button>
-        <button
+                <button
           onClick={() => setActiveTab("meatpie")}
           className={`px-6 py-3 rounded-lg font-bold transition-all ${
             activeTab === "meatpie" ? "bg-[#5c3d2e] text-white shadow-lg" : "text-gray-600 hover:bg-gray-200"
@@ -35,9 +36,17 @@ export default function ProductSelector() {
         >
           🥟 Meat Pie Calculator
         </button>
+        <button
+          onClick={() => setActiveTab("puffpuff")}
+          className={`px-6 py-3 rounded-lg font-bold transition-all ${
+            activeTab === "puffpuff" ? "bg-[#5c3d2e] text-white shadow-lg" : "text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          🍘 Puff Puff Calculator
+        </button>
       </div>
 
-      {activeTab === "cake" ? <CakeCalculator /> : activeTab === "doughnut" ? <DoughnutCalculator /> : <MeatPieCalculator />}
+      {activeTab === "cake" ? <CakeCalculator /> : activeTab === "doughnut" ? <DoughnutCalculator /> : activeTab === "meatpie" ? <MeatPieCalculator /> : <PuffPuffCalculator />}
     </div>
   );
 }
