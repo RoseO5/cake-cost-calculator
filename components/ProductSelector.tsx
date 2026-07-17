@@ -8,9 +8,10 @@ import PuffPuffCalculator from "./PuffPuffCalculator";
 import ShawarmaCalculator from "./ShawarmaCalculator";
 import SpringRollCalculator from "./SpringRollCalculator";
 import JollofRiceCalculator from "./JollofRiceCalculator";
+import FriedRiceCalculator from "./FriedRiceCalculator";
 
 export default function ProductSelector() {
-  const [activeTab, setActiveTab] = useState<"cake" | "doughnut" | "meatpie" | "puffpuff" | "shawarma" | "springroll" | "jollof">("cake");
+  const [activeTab, setActiveTab] = useState<"cake" | "doughnut" | "meatpie" | "puffpuff" | "shawarma" | "springroll" | "jollof" | "friedrice">("cake");
 
   return (
     <div className="max-w-6xl mx-auto p-4">
@@ -71,9 +72,17 @@ export default function ProductSelector() {
         >
           🍚 Jollof Rice Calculator
         </button>
+        <button
+          onClick={() => setActiveTab("friedrice")}
+          className={`px-6 py-3 rounded-lg font-bold transition-all ${
+            activeTab === "friedrice" ? "bg-[#5c3d2e] text-white shadow-lg" : "text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          🍛 Fried Rice Calculator
+        </button>
       </div>
 
-      {activeTab === "cake" ? <CakeCalculator /> : activeTab === "doughnut" ? <DoughnutCalculator /> : activeTab === "meatpie" ? <MeatPieCalculator /> : activeTab === "puffpuff" ? <PuffPuffCalculator /> : activeTab === "shawarma" ? <ShawarmaCalculator /> : activeTab === "springroll" ? <SpringRollCalculator /> : <JollofRiceCalculator />}
+      {activeTab === "cake" ? <CakeCalculator /> : activeTab === "doughnut" ? <DoughnutCalculator /> : activeTab === "meatpie" ? <MeatPieCalculator /> : activeTab === "puffpuff" ? <PuffPuffCalculator /> : activeTab === "shawarma" ? <ShawarmaCalculator /> : activeTab === "springroll" ? <SpringRollCalculator /> : activeTab === "jollof" ? <JollofRiceCalculator /> : <FriedRiceCalculator />}
     </div>
   );
 }
