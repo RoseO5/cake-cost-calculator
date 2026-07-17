@@ -10,9 +10,10 @@ import SpringRollCalculator from "./SpringRollCalculator";
 import JollofRiceCalculator from "./JollofRiceCalculator";
 import FriedRiceCalculator from "./FriedRiceCalculator";
 import ChinChinCalculator from "./ChinChinCalculator";
+import BananaBreadCalculator from "./BananaBreadCalculator";
 
 export default function ProductSelector() {
-  const [activeTab, setActiveTab] = useState<"cake" | "doughnut" | "meatpie" | "puffpuff" | "shawarma" | "springroll" | "jollof" | "friedrice" | "chinchin">("cake");
+  const [activeTab, setActiveTab] = useState<"cake" | "doughnut" | "meatpie" | "puffpuff" | "shawarma" | "springroll" | "jollof" | "friedrice" | "chinchin" | "bananabread">("cake");
 
   return (
     <div className="max-w-6xl mx-auto p-4">
@@ -89,9 +90,17 @@ export default function ProductSelector() {
         >
           🍪 Chin Chin Calculator
         </button>
+        <button
+          onClick={() => setActiveTab("bananabread")}
+          className={`px-6 py-3 rounded-lg font-bold transition-all ${
+            activeTab === "bananabread" ? "bg-[#5c3d2e] text-white shadow-lg" : "text-gray-600 hover:bg-gray-200"
+          }`}
+        >
+          🍌 Banana Bread Calculator
+        </button>
       </div>
 
-      {activeTab === "cake" ? <CakeCalculator /> : activeTab === "doughnut" ? <DoughnutCalculator /> : activeTab === "meatpie" ? <MeatPieCalculator /> : activeTab === "puffpuff" ? <PuffPuffCalculator /> : activeTab === "shawarma" ? <ShawarmaCalculator /> : activeTab === "springroll" ? <SpringRollCalculator /> : activeTab === "jollof" ? <JollofRiceCalculator /> : activeTab === "friedrice" ? <FriedRiceCalculator /> : <ChinChinCalculator />}
+      {activeTab === "cake" ? <CakeCalculator /> : activeTab === "doughnut" ? <DoughnutCalculator /> : activeTab === "meatpie" ? <MeatPieCalculator /> : activeTab === "puffpuff" ? <PuffPuffCalculator /> : activeTab === "shawarma" ? <ShawarmaCalculator /> : activeTab === "springroll" ? <SpringRollCalculator /> : activeTab === "jollof" ? <JollofRiceCalculator /> : activeTab === "friedrice" ? <FriedRiceCalculator /> : activeTab === "chinchin" ? <ChinChinCalculator /> : <BananaBreadCalculator />}
     </div>
   );
 }
